@@ -1,0 +1,91 @@
+package cn.wizool.schooltimetable.bean;
+
+/**
+ * 排课时间安规则
+ * 按教师设置
+ * @author PLJay
+ *
+ */
+public class TeacherSettings {
+	/**
+	 * 记录id
+	 */
+	private String id="";
+	/**
+	 * 学校id
+	 */
+	private String schoolId="";
+	/**
+	 * 任务id
+	 */
+	private String taskId="";
+	public String getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+	/**
+	 * 节次
+	 */
+	private String section="";
+	/**
+	 * 老师id
+	 * 
+	 */
+	private String teacherId="";
+	/**
+	 * 类型
+	 * 禁止/独占/固定/优先
+	 */
+	private int type=0;
+	/**
+	 * 校验可能存在的冲突：
+	固定/优先或禁止排课与统一设置的相反设置冲突。
+	多个教师教同一班级不同科目，教师固定上课时间冲突。
+	多个教师教同一班级，优先排课节次重叠。此情况不算绝对冲突，需设置教师优先级。
+	与按班级设置、按课程设置的规则冲突，发生此冲突时提醒，但可不改，冲突规则按教师、班级、课程优先级满足，满足不了的抛弃。
+	 */
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getSection() {
+		return section;
+	}
+	public void setSection(String section) {
+		this.section = section;
+	}
+	public String getSchoolId() {
+		return schoolId;
+	}
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
+	}
+	public String getTeacherId() {
+		return teacherId;
+	}
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public TeacherSettings(String id, String schoolId, String section, String teacherId, int type) {
+		super();
+		this.id = id;
+		this.schoolId = schoolId;
+		this.section = section;
+		this.teacherId = teacherId;
+		this.type = type;
+	}
+	
+	
+	
+}

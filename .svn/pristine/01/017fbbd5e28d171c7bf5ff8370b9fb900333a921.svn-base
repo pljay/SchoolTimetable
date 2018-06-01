@@ -1,0 +1,303 @@
+	<!doctype html>
+	<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>基于Bootstrup的强大jQuery表单验证插件|validators</title>
+		<!-- Include the FontAwesome CSS if you want to use feedback icons provided by FontAwesome -->
+		<link rel="stylesheet" href="pages/forms/formValidation.css" />
+		<!--[if IE]>
+			<script src="html5shiv.min.js" tppabs="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+
+				<div class="row">
+					<!-- form: -->
+					<section>
+						<div class="page-header">
+							<h1>Built-in validators</h1>
+						</div>
+
+						<div class="col-lg-8 col-lg-offset-2">
+							<form id="defaultForm" method="post" action="InsertSchoolServlet">
+								<fieldset>
+									<legend>Not Empty validator</legend>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Username</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="username" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Country</label>
+										<div class="col-lg-5">
+											<select class="form-control" name="country">
+												<option value="">-- Select a country --</option>
+												<option value="fr">France</option>
+												<option value="de">Germany</option>
+												<option value="it">Italy</option>
+												<option value="jp">Japan</option>
+												<option value="ru">Russia</option>
+												<option value="gb">United Kingdom</option>
+												<option value="us">United State</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-lg-5 col-lg-offset-3">
+											<div class="checkbox">
+												<input type="checkbox" name="acceptTerms" /> Accept the terms and policies
+											</div>
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset>
+									<legend>Regular expression based validators</legend>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Email address</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="email" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Website</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="website" placeholder="http://" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">US Phone number</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="phoneNumberUS" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">UK Phone number</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="phoneNumberUK" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Hex, RGB, HSL, Keyword color</label>
+										<div class="col-lg-3">
+											<input type="text" class="form-control" name="color" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">All colors</label>
+										<div class="col-lg-3">
+											<input type="text" class="form-control" name="colorAll" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">US zip code</label>
+										<div class="col-lg-3">
+											<input type="text" class="form-control" name="zipCode" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset>
+									<legend>Identical validator</legend>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Password</label>
+										<div class="col-lg-5">
+											<input type="password" class="form-control" name="password" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Retype password</label>
+										<div class="col-lg-5">
+											<input type="password" class="form-control" name="confirmPassword" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset>
+									<legend>Other validators</legend>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Ages</label>
+										<div class="col-lg-3">
+											<input type="text" class="form-control" name="ages" />
+										</div>
+									</div>
+								</fieldset>
+
+								<div class="form-group">
+									<div class="col-lg-9 col-lg-offset-3">
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</section>
+					<!-- :form -->
+				</div>
+			</div>
+
+			<div class="form-group hide" id="emailTemplate">
+				<div class="col-xs-offset-3 col-xs-5">
+					<input class="form-control" type="text" name="email[]" />
+				</div>
+				<div class="col-xs-4">
+					<button type="button" class="btn btn-default btn-sm removeButton">Remove</button>
+				</div>
+			</div>
+			
+
+		
+		<script type="text/javascript" src="pages/forms/jquery.min.js" ></script>
+		<script type="text/javascript" src="pages/forms/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="pages/forms/formValidation.js" ></script>
+		<script type="text/javascript" src="pages/forms/bootstrap.js" ></script>
+		<script type="text/javascript" src="pages/forms/zh_CN.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var check=findcheckedval();  
+				console.log(check)
+				$('#defaultForm').formValidation({
+					message: 'This value is not valid',
+					icon: {
+						valid: 'glyphicon glyphicon-ok',
+						invalid: 'glyphicon glyphicon-remove',
+						validating: 'glyphicon glyphicon-refresh'
+					},
+					fields: {
+						username: {
+							message: '用户名无效',
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								stringLength: {
+									min: 6,
+									max: 30,
+									message: '用户名长度必须超过6个且少于30个字符'
+								},
+								regexp: {
+									regexp: /^[a-zA-Z0-9_\.]+$/,
+									message: '用户名只能由字母，数字，圆点和下划线组成'
+								}
+							}
+						},
+						country: {
+							validators: {
+								notEmpty: {
+									message: '这个国家是必需的，不能是空的'
+								}
+							}
+						},
+						acceptTerms: {
+							validators: {
+								notEmpty: {
+									message: '你必须接受条款和政策'
+								}
+							}
+						},
+						email: {
+							validators: {
+								notEmpty: {
+									message: '该电子邮件地址是必需的，不能为空'
+								},
+								emailAddress: {
+									message: '该输入不是有效的电子邮件地址'
+								}
+							}
+						},
+						website: {
+							validators: {
+								uri: {
+									message: '该输入不是有效的URL'
+								}
+							}
+						},
+						phoneNumberCN: {
+							validators: {
+								phone: {
+									message: '该输入不是有效的电话号码'
+								}
+							}
+						},
+						phoneNumberUK: {
+							validators: {
+								phone: {
+									message: '该输入不是有效的英国电话号码',
+									country: 'GB'
+								}
+							}
+						},
+						color: {
+							validators: {
+								color: {
+									type: ['hex', 'rgb', 'hsl', 'keyword'],
+									message: 'Must be a valid %s color'
+								}
+							}
+						},
+						colorAll: {
+							validators: {
+								color: {}
+							}
+						},
+						zipCode: {
+							validators: {
+								zipCode: {
+									country: 'CN',
+									message: '该输入不是有效的美国邮政编码'
+								}
+							}
+						},
+						password: {
+							validators: {
+								notEmpty: {
+									message: '密码是必需的，不能为空'
+								}
+							}
+						},
+						confirmPassword: {
+							validators: {
+								notEmpty: {
+									message: '确认密码是必需的，不能为空'
+								},
+								identical: {
+									field: 'password',
+									message: '密码和确认不一样'
+								}
+							}
+						},
+						ages: {
+							validators: {
+								lessThan: {
+									value: 100,
+									inclusive: true,
+									message: '年龄必须小于100岁'
+								},
+								greaterThan: {
+									value: 10,
+									inclusive: false,
+									message: '年龄必须大于或等于10岁'
+								}
+							}
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+	</html>

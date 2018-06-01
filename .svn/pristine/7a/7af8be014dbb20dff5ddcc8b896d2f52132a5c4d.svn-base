@@ -1,0 +1,86 @@
+package cn.wizool.schooltimetable.bean;
+
+/**
+ * 合并上课规则
+ * 
+ * @author PLJay
+ *
+ */
+public class JointClass {
+	/**
+	 * 学校id
+	 */
+	private String schoolId = "";
+	/**
+	 * 任务id
+	 */
+	private String taskId = "";
+	/**
+	 * 合班id
+	 */
+	private String jointId = "";
+	/**
+	 * 合班科目
+	 */
+	private String jointSubject = "";
+	/**
+	 * 合班班级：多个班存在一起，英文;分隔。
+	 */
+	private String[] jointClassId = null;
+	/**
+	 * 合班教师：合班班级该科目的教师，多个存在一起，英文;分隔，顺序与合班班级一一对应相同
+	 */
+	private String[] jointTearcherId = null ;
+
+	
+	public String getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
+	}
+
+	public String getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+
+	public String getJointId() {
+		return jointId;
+	}
+
+	public void setJointId(String jointId) {
+		this.jointId = jointId;
+	}
+
+	public String getJointSubject() {
+		return jointSubject;
+	}
+
+	public void setJointSubject(String jointSubject) {
+		this.jointSubject = jointSubject;
+	}
+
+	public String[] getJointClassId() {
+		return jointClassId;
+	}
+
+	public void setJointClassId(String[] jointClassId) {
+		this.jointClassId = jointClassId;
+	}
+
+	public String[] getJointTearcherId() {
+		return jointTearcherId;
+	}
+
+	public void setJointTearcherId(String[] jointTearcherId) {
+		this.jointTearcherId = jointTearcherId;
+	}
+
+	
+
+}

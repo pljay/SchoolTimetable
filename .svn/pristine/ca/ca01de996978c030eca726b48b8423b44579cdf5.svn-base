@@ -1,0 +1,58 @@
+package cn.wizool.schooltimetable.bean;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 完整课表中单元格中，每节次课程数据的明细
+ * @author zl
+ *
+ */
+public class ClassTableCellSet {
+
+	/**
+	 * 任务ID
+	 */
+	public String taskId="";
+	/**
+	 * 学校ID
+	 */
+	public String schoolId=""; 
+	
+	/** 科目ID
+	 */
+	public String subjectId="";
+	/**
+	 * 科目名称
+	 */
+	public String subjectName="";
+	/**
+	 * 是否走班，1普通，2走班，默认1
+	 */
+	public int classType=1;
+	/**
+	 * 年级ID
+	 */
+	public String gradeID="";
+	/**
+	 * 班级ID
+	 */
+	public String classId="";
+	/**
+	 * 课程名称
+	 */
+	public String curriculumName="";
+	/**
+	 * 任课教师，允许多个
+	 */
+	public List<String> teachers=new ArrayList<String>();
+	
+	/**
+	 * 教室ID
+	 */
+	public String roomID="";
+	/**
+	 * 教室名称
+	 */
+	public String roomName="";	
+}

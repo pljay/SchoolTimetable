@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "pid": 0,
+    "name": "一年级",
+    "referred": "课程"
+  },
+  {
+    "id": 2,
+    "pid": 0,
+    "name": "二年级",
+    "referred": "课程"
+  },
+  {
+    "id": 20,
+    "pid": 1,
+    "name": "课程",
+    "referred": "<span id='123'>数学A</span>"
+  },
+  {
+    "id": 21,
+    "pid": 1,
+    "name": "课程",
+    "referred": "<span id='123'>数学B</span>"
+  },
+  {
+    "id": 22,
+    "pid": 1,
+    "name": "课程",
+    "referred": "<span id='123'>语文A</span>"
+  },
+  {
+    "id": 33,
+    "pid": 2,
+    "name": "课程",
+    "referred": "<span id='123'>语文B</span>"
+  },
+  {
+    "id": 333,
+    "pid": 2,
+    "name": "课程",
+    "referred": "<span id='123'>语文C</span>"
+  },
+  {
+    "id": 3333,
+    "pid": 2,
+    "name": "课程",
+    "referred": "<span id='123'>语文D</span>"
+  },
+  {
+    "id": 233332,
+    "pid": 2,
+    "name": "课程",
+    "referred": "<span id='123'>语文E</span>"
+  }
+]

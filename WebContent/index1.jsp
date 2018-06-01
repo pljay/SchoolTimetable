@@ -1,0 +1,169 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    	<title>科目</title>
+		<link href="bootstrap/css/bootstrap.css"  rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="normalize.css"/>
+		<link rel="stylesheet" type="text/css" href="demo.css" />
+		<link rel="stylesheet" type="text/css" href="component.css"  />
+        <link href="bootstrap/css/bootstrap-table.css" rel="stylesheet">
+        <link rel="stylesheet" href="bootstrap-editable/css/bootstrap-editable.css">
+		<!--[if IE]>
+  		<script src="html5.js" tppabs="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+    <div class="container">
+         <div class="component">
+             <h3>科目排课优先级规则</h3>
+             <p>优先级：列出本任务中涉及的所有科目，按默认按录入顺序设定优先级，可修改。优先级分5级高、较高、中、较低、低，编码为5-1，越大越高。可不设。默认优先级为中，值为3。</p>
+            <br>
+         </div>
+        <div class="col-sm-12">
+             <table class="" id="table" >
+
+            </table>
+        </div>
+
+    </div><!-- /container -->
+    <script src="jquery.min.js" ></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap-editable.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap-editable.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap-table.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap-table-treegrid.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap-table-editable.js"></script>
+			<script src="jquery.ba-throttle-debounce.min.js" ></script>
+		<script src="jquery.stickyheader.js" ></script>
+    <script type="text/javascript">
+        $(function () {
+            var $table = $("#table");
+            $table.bootstrapTable({
+                url: 'http://localhost:8080/SchoolTimetable/SubjectListServlet',
+                dataType: "jsonp",//数据类型
+                method: 'get',
+                async : false,
+                jsonpCallback : "jsonpCallback",//自定义的jsonp回调函数名,默认为jQuery自动生成的随机函数
+                jsonp : "callback",//传递给请求处理程序或页面的,用以获得jsonp回调函数名的参数名(默认为callback)
+                pagination: true, //分页
+                paginationPreText: '上一页',
+                paginationNextText: '下一页',
+                striped: true, //条纹
+                showColumns: true, //内容列下拉框
+                showRefresh: true, //刷新按钮
+                clickToSelect: true, //是否启用点击选中行
+                sidePagination: "server", //服务端分页，还有client，不过不认为除非想玩单机版的，基本都是由服务端进行分页
+                // toolbar: "#toolbar",
+                responseHandler: responseHandler, //接受后台传过来的值进行绑定处理的函数
+                queryParamsType: "undefined",
+                queryParams: queryParams, //一系列操作后向后台发送参数的函数
+                idField: 'ID',
+                columns: [
+                    {
+                        field:"index",
+                        title:"序号",
+                        align:"center",
+                        formatter:function(value, row, index){
+                            return row.index=index+1 ; //返回行号
+                        }
+
+                    },
+                    {
+                        field:"subject_name",
+                        title:"科目",
+                        align:"center",
+
+                    },
+                    {
+                        title:"优先级",
+                        field:"subject_priority",
+                        editable: {
+                            type: 'select',
+                            emptytext: "请选择",
+                            source: [
+                                {value: 1, text:"低"},
+                                {value: 2, text: "较低"},
+                                {value: 3, text: "中"},
+                                {value: 4, text: "较高"},
+                                {value: 5, text: "高"}
+                            ]
+
+                        }
+
+                    }],
+                onEditableSave: function (field, row, oldValue, $el) {
+                    alert(JSON.stringify(row));
+                   $.ajax({
+                        type: "post",
+                        url: "http://localhost:8080/SchoolTimetable/SubjectUpdatePriority",
+                        async : false,
+                        dataType : "jsonp",
+                        jsonpCallback : "jsonpCallback",//自定义的jsonp回调函数名,默认为jQuery自动生成的随机函数
+                        jsonp : "callback",//传递给请求处理程序或页面的,用以获得jsonp回调函数名的参数名(默认为callback)
+                        data: { strJson: JSON.stringify(row) },
+                        success: function (data, status) {
+                            console.log(status)
+                            if (status == "success") {
+                                alert('编辑成功');
+                            }
+                        },
+                        error: function () {
+                            alert("Error");
+                        },
+                        complete: function () {
+
+                        }
+
+                    });
+                }
+            });
+        });
+
+        function responseHandler(res) {
+            console.log(res);
+            return {
+                'total': res.total,
+                "rows": res.data,
+                "offset": res.offset,
+                "limit": res.limit
+            }
+        }
+
+        function queryParams(params) {
+            //一系列操作后向后台传递的参数，这里可以传搜索框的值
+            var searchName = $("#searchName").val();
+            return {
+                "pageNumber": params.pageNumber,
+                "pageSize": params.pageSize,
+                "searchName": searchName
+            }
+        }
+    </script>
+		<!--<script language="javascript">
+            $("table tr td").click(function() {
+                var classname= $(this).hasClass("ban");
+                console.log(classname);
+                if(($(this).prop("className"))!="fixed"){
+                    classname? $(this).removeClass("ban"):$(this).addClass("ban");
+				}
+                alert($(this).attr('id'));
+			});
+            $("button").click(function() {
+                var banlist=[];
+                $('.ban').each(function(){
+                    // let this = $(this);
+                    banlist.push($(this).text());
+
+                });
+                console.log(banlist);
+            });
+
+		</script>-->
+
+	</body>
+</html>

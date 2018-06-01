@@ -1,0 +1,76 @@
+package cn.wizool.schooltimetable.bean;
+/**
+ * 排课时间规则
+ * 按班级设置
+ * @author PLJay
+ *
+ */
+public class ClassSettings {
+
+	/**
+	 * 记录id
+	 */
+	private String id="";
+	/**
+	 * 学校id
+	 */
+	private String schoolId="";
+	/**
+	 * 任务id
+	 */
+	private String taskId="";
+	/**
+	 * 节次
+	 */
+	private String section="";
+	/**
+	 * 班级id
+	 * 
+	 */
+	private String classId;
+	/**
+	 * 类型
+	 * 禁止/独占/固定/优先
+	 */
+	private int type=1;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getSection() {
+		return section;
+	}
+	public void setSection(String section) {
+		this.section = section;
+	}
+	public String getSchoolId() {
+		return schoolId;
+	}
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
+	}
+	public String getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+	public String getClassId() {
+		return classId;
+	}
+	public void setClassId(String classId) {
+		this.classId = classId;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	
+	
+
+}

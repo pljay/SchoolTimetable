@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>统一设置</title>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="normalize.css" />
+    <link rel="stylesheet" type="text/css" href="demo.css" />
+    <link rel="stylesheet" type="text/css" href="component.css" />
+    <script src="jquery.min.js"></script>
+    <script src="TableLimit.js"></script>
+    <!--[if IE]>
+    <script src="html5.js" tppabs="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+<div class="component">
+    <h3>统一设置</h3>
+    <p>禁止排课：点击“禁止排课”按钮，点击节次格（可依次点多个），节次格为白色的置红，红色的置白，蓝色的不可选。红色格表示任务中所有班级、科目、课程均不得在此节次排课。此规则用于留出全校例行活动、会议等事务的时间，以及区分单双周安排等情况。</p>
+    <button class="btn btn-large btn-primary" >保存</button>
+</div>
+
+<div id="one" class="col-sm-12">
+    <p align="center">单周</p>
+    <table class="">
+        <thead>
+        <tr>
+            <th>节次</th>
+            <th id="00">周一</th>
+            <th id="01">周二</th>
+            <th id="02">周三</th>
+            <th id="03">周四</th>
+            <th id="04">周五</th>
+            <th id="05">周六</th>
+            <th id="06">周天</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr value="01">
+            <th>1</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="02">
+            <th>2</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="03">
+            <th>3</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="04">
+            <th>4</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="05">
+            <th>5</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="06">
+            <th>6</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="07">
+            <th>7</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="08">
+            <th>8</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="09">
+            <th>9</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="10">
+            <th>10</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="11">
+            <th>11</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="12">
+            <th>12</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="13">
+            <th>13</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="two" class="col-sm-12">
+    <p align="center">双周</p>
+    <table class="">
+        <thead>
+        <tr>
+            <th>节次</th>
+            <th id="07">周一</th>
+            <th id="08">周二</th>
+            <th id="09">周三</th>
+            <th id="10">周四</th>
+            <th id="11">周五</th>
+            <th id="12">周六</th>
+            <th id="13">周天</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr value="01">
+            <th>1</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="02">
+            <th>2</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="03">
+            <th>3</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="04">
+            <th>4</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="05">
+            <th>5</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="06">
+            <th>6</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="07">
+            <th>7</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="08">
+            <th>8</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="09">
+            <th>9</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="10">
+            <th>10</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="11">
+            <th>11</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="12">
+            <th>12</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr value="13">
+            <th>13</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<script src="jquery.ba-throttle-debounce.min.js"
+        tppabs="http://www.jq22.com/demo/StickyTable201707311417/js/jquery.ba-throttle-debounce.min.js"></script>
+<script language="javascript">
+    $(function () {
+        var banlist=new Array();
+        var taskid="";
+        var schoolid="";
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/SchoolTimetable/IsDoubleweek",
+            async : false,
+            dataType : "jsonp",
+            jsonpCallback : "jsonpCallback",//自定义的jsonp回调函数名,默认为jQuery自动生成的随机函数
+            jsonp : "callback",//传递给请求处理程序或页面的,用以获得jsonp回调函数名的参数名(默认为callback)
+            // data: { strJson: JSON.stringify(row) },
+            success: function (data, status) {
+                console.log(data);
+                var type=data.type;
+                var amount=data.amount;
+                var weeks=data.weeks;
+                taskid=data.taskid;
+                schoolid=data.schoolid;
+                tablelimit(data);
+                var list="";
+                $.ajax({
+                    type: "post",
+                    url: "UniformRulesInfoList",
+                    async : false,
+                    dataType : 'json',
+                    // data: { strJson: JSON.stringify(row) },
+                    data:{ taskid:taskid,schoolid:schoolid},
+                    success: function (data) {
+                        list=data;
+                    },
+                    error: function () {
+                        alert("Error");
+                    },
+                    complete: function () {
+
+                    }
+                });
+                $('table tr td').each(function () {
+                    // let this = $(this);
+                    var hang = $(this).parent().attr("value");
+                    var lie = $(this).prevAll().length;
+                    lie = $(this).parent().parent().parent().children("thead").find("th").eq(lie).attr("id");
+                    var id = lie + hang;
+                    $(this).attr("id",id);
+                    for(var i=0;i<list.length;i++){
+                        if(id==list[i].id){
+
+                            $(this).attr("class",list[i].classname);
+                        }
+                    }
+                    console.log("第" + hang + "行" + "    " + "第" + lie + "列" + "id=" + id);
+                });
+
+
+            },
+            error: function () {
+                alert("Error");
+            },
+            complete: function () {
+
+            }
+        });
+        $("table tr td").click(function () {
+            var classname = $(this).hasClass("ban");
+            console.log(classname);
+            if (($(this).prop("className")) != "fixed") {
+                classname ? $(this).removeClass("ban") : $(this).addClass("ban");
+            }
+            alert($(this).attr('id'));
+        });
+        $("button").click(function () {
+            $('table tr td').each(function () {
+                var course=new Object();
+                course.id=$(this).attr("id");
+                if(!$(this).attr("class")){
+                    course.coursetype="normal";
+                    console.log(course.coursetype)
+
+                }
+                else {
+                    course.coursetype=$(this).attr("class");
+                }
+                banlist.push(course);
+            });
+            var json={taskid:taskid,
+                schoolid:schoolid,
+                banlist:banlist
+            }
+            $.ajax({
+                type: "post",
+                url: "UniformRulesInfo",
+                async : false,
+                dataType : 'text',
+                // data: { strJson: JSON.stringify(row) },
+                data:{ strJson: JSON.stringify(json) },
+                success: function (data) {
+                    if(data== "success"){
+                        alert("成功")
+                    }
+
+                },
+                error: function () {
+                    alert("Error");
+                },
+                complete: function () {
+
+                }
+            });
+            banlist.length=0;
+        });
+    })
+</script>
+<script type="text/javascript">
+    function downloadJSAtOnload() {
+        var element = document.createElement("script");
+        element.src = "jquery.stickyheader.js";
+        document.body.appendChild(element);
+    }
+    if (window.addEventListener)
+        window.addEventListener("load", downloadJSAtOnload, false);
+    else if (window.attachEvent)
+        window.attachEvent("onload", downloadJSAtOnload);
+    else window.onload = downloadJSAtOnload;
+</script>
+
+</body>
+</html>

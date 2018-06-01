@@ -1,0 +1,359 @@
+	<!doctype html>
+	<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>基于Bootstrup的强大jQuery表单验证插件|validators</title>
+		<!-- Include the FontAwesome CSS if you want to use feedback icons provided by FontAwesome -->
+		<link rel="stylesheet" href="formValidation.css" />
+		<link rel="stylesheet" href="bootstrap.css" />
+		<link rel="stylesheet" href="pick-pcc.css" "/>
+		<!--[if IE]>
+			<script src="html5shiv.min.js" tppabs="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+<div class ="container">
+				<div class="row">
+					<!-- form: -->
+					<section>
+						<div class="page-header">
+							<h1 align="center">注册</h1>
+						</div>
+
+						<div class="col-lg-8 col-lg-offset-2">
+							<form id="defaultForm" method="post" action="http://localhost:8080/SchoolTimetable/SchoolUserInsert" class="form-horizontal">
+								<fieldset>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">学校名称</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="schoolname" />
+										</div>
+									</div>
+									<div class="form-group">
+											<label class="col-lg-3 control-label">学校类型</label>
+										<div class="col-lg-5">
+											<select class="form-control" name="school_type">
+												<option value="">-- 学校类型 --</option>
+												<option value="小学">小学</option>
+												<option value="初中">初中</option>
+												<option value="高中">高中</option>
+												<option value="大学">大学</option>
+												<option value="职高">职高</option>
+												<option value="职业学院">职业学院</option>
+												<option value="培训学院">培训学院</option>
+												<option value="成人院校">成人院校</option>
+											</select> 
+										</div>
+									</div>				
+									<div class="form-group">
+										<label class="col-lg-3 control-label">用户名</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="username" />
+										</div>
+									</div>	
+										<div class="form-group">
+										<label class="col-lg-3 control-label">登陆账号</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="account" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">密码</label>
+										<div class="col-lg-5">
+											<input type="password" class="form-control" name="password" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">再次输入</label>
+										<div class="col-lg-5">
+											<input type="password" class="form-control" name="confirmPassword" />
+										</div>
+									</div>		
+									<div class="form-group">
+										<div class="col-lg-5 col-lg-offset-3">
+											<div class="checkbox">
+												<input type="checkbox" name="acceptTerms" /> 接受政策
+											</div>
+										</div>
+									</div>
+								</fieldset>
+
+								<div class="form-group">
+									<div class="col-lg-9 col-lg-offset-3">
+										<button type="submit" class="btn btn-primary">提交</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</section>
+					<!-- :form -->
+				</div>
+			</div>
+
+			<div class="form-group hide" id="emailTemplate">
+				<div class="col-xs-offset-3 col-xs-5">
+					<input class="form-control" type="text" name="email[]" />
+				</div>
+				<div class="col-xs-4">
+					<button type="button" class="btn btn-default btn-sm removeButton">Remove</button>
+				</div>
+			</div>
+</div>		
+
+		<script type="text/javascript" src="jquery.min.js" ></script>
+		<script type="text/javascript" src="bootstrap.min.js" ></script>
+		<script type="text/javascript" src="formValidation.js" ></script>
+		<script type="text/javascript" src="bootstrap.js" ></script>
+		<script type="text/javascript" src="zh_CN.js"></script>
+		<script type="text/javascript" src="pick-pcc.js" ></script>
+		<script type="text/javascript">
+
+			$(document).ready(function() {
+				$('#defaultForm').formValidation({
+					message: 'This value is not valid',
+					icon: {
+						valid: 'glyphicon glyphicon-ok',
+						invalid: 'glyphicon glyphicon-remove',
+						validating: 'glyphicon glyphicon-refresh'
+					},
+					fields: {
+						schoolname: {
+							message: '学校名无效',
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								stringLength: {
+									min: 4,
+									max: 20,
+									message: '学校名长度必须超过4个且少于20个字符'
+								},
+								regexp: {
+									regexp: /^[\u4E00-\u9FA5]*$/,
+									message: '学校名只含有汉字'
+								}
+							}
+						},
+						username: {
+							message: '用户名无效',
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								stringLength: {
+									min: 1,
+									max: 5,
+									message: '用户名长度必须超过1个且少于5个字符'
+								},
+								regexp: {
+									regexp: /^[\u4E00-\u9FA5]*$/,
+									message: '用户名只含有汉字'
+								}
+							}
+						},
+						account: {
+							message: '登陆账户无效',
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								stringLength: {
+									min: 1,
+									max: 5,
+									message: '登陆账户长度必须超过1个且少于5个字符'
+								},
+								regexp: {
+									regexp: /^\w+$/,
+									message: '由数字、26个英文字母或者下划线组成的字符串'
+								}
+							}
+						},
+						abbreviation: {
+							message: '简称无效',
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								stringLength: {
+									min: 2,
+									max: 10,
+									message: '用户名长度必须超过2个且少于10个字符'
+								},
+								regexp: {
+									regexp: /^[\w\u4E00-\u9FA5\uF900-\uFA2D]*$/,
+									message: '只含有汉字、数字、字母、下划线不能以下划线开头和结尾'
+								}
+							}
+						},
+						place: {
+							validators: {
+								notEmpty: {
+									message: '这个地点是必需的，不能是空的'
+								}
+							}
+						},
+						address: {
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								regexp: {
+									regexp: /^[\w\u4E00-\u9FA5\uF900-\uFA2D]*$/,
+									message: '只含有汉字、数字、字母、下划线不能以下划线开头和结尾'
+								}
+							}
+						},
+						acceptTerms: {
+							validators: {
+								notEmpty: {
+									message: '你必须接受条款和政策'
+								}
+							}
+						},
+						email: {
+							validators: {
+								notEmpty: {
+									message: '该电子邮件地址是必需的，不能为空'
+								},
+								emailAddress: {
+									message: '该输入不是有效的电子邮件地址'
+								}
+							}
+						},
+						website: {
+							validators: {
+								uri: {
+									message: '该输入不是有效的URL'
+								}
+							}
+						},
+						tel_man: {
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								stringLength: {
+									min: 2,
+									max: 10,
+									message: '用户名长度必须超过2个且少于10个字符'
+								},
+								regexp: {
+									regexp: /^[\w\u4E00-\u9FA5\uF900-\uFA2D]*$/,
+									message: '只含有汉字、数字、字母、下划线不能以下划线开头和结尾'
+								}
+							}
+						},
+						phoneNumberCN: {
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								regexp:{
+									regexp:/^0{0,1}(13[0-9]|15[0-9]|18[0-9]|14[0-9])[0-9]{8}$/,
+									message: '该输入不是有效的电话号码'
+								}
+							}
+						},
+						school_type: {
+							validators: {
+								notEmpty: {
+									message: '这个地点是必需的，不能是空的'
+								}
+							}
+						},
+						phoneNumberUK: {
+							validators: {
+								phone: {
+									message: '该输入不是有效的英国电话号码',
+									country: 'GB'
+								}
+							}
+						},
+						color: {
+							validators: {
+								color: {
+									type: ['hex', 'rgb', 'hsl', 'keyword'],
+									message: 'Must be a valid %s color'
+								}
+							}
+						},
+						colorAll: {
+							validators: {
+								color: {}
+							}
+						},
+						zipCode: {
+							validators: {
+								notEmpty: {
+									message: '必填'
+								},
+								regexp: {
+									regexp: /^[0-9][0-9]{5}$/,
+									message: '邮编无效'
+								}
+							}
+						},
+						password: {
+							validators: {
+								notEmpty: {
+									message: '密码不能为空'
+								}
+							}
+						},
+						confirmPassword: {
+							validators: {
+								notEmpty: {
+									message: '密码不能为空'
+								},
+								identical: {
+									field: 'password',
+									message: '与输入密码不同'
+								}
+							}
+						},
+						ages: {
+							validators: {
+								lessThan: {
+									value: 100,
+									inclusive: true,
+									message: 'The ages has to be less than 100'
+								},
+								greaterThan: {
+									value: 10,
+									inclusive: false,
+									message: 'The ages has to be greater than or equals to 10'
+								}
+							}
+						}
+					}
+				});
+		$(".pick-area6").pickArea({
+        				"format":"province/city/county", //格式
+ /*       "width":"290",*/
+       					"borderColor":"#ccc",//文本边框的色值
+       					"arrowColor":"#ccc",//下拉箭头颜色
+        				"listBdColor":"#000",//下拉框父元素ul的border色值
+        				"color":"#000",//字体颜色
+        				"hoverColor":"#000",
+        //"preSet":"山东省/临沂市/兰陵县",
+       					"getVal":function(){
+        					$("input[name='place']").val($(".pick-area-hidden").val());
+            				console.log($(".pick-area-hidden").val());
+        					}
+    });
+			});
+	   	function getQueryString(name) {  
+    	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");  
+   		var r = window.location.search.substr(1).match(reg);  
+    	if (r != null)  
+        	return unescape(r[2]);  
+    		return null;  
+		}  
+		var mbid = getQueryString("schoolid"); 
+		    console.log(mbid);
+		</script>
+	</body>
+	</html>

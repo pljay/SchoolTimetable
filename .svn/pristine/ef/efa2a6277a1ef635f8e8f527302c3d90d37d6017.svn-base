@@ -1,0 +1,92 @@
+package cn.wizool.schooltimetable.bean;
+/**
+ * 排课时间规则
+ * 按科目设置
+ * @author PLJay
+ *
+ */
+public class SubjectSettings {
+
+	/**
+	 * 记录id
+	 */
+	private String id;
+	/**
+	 * 学校id
+	 */
+	private String schoolId="";
+	/**
+	 * 任务id
+	 */
+	private String taskId="";
+	public String getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+	/**
+	 * 节次
+	 */
+	private String section="";
+	/**
+	 * 科目id
+	 * 
+	 */
+	private String subjectId="";
+	/**
+	 * 类型
+	 * 禁止/独占/固定/优先: 1/2/3/4
+	 */
+	private int type=0;
+	/**
+	 * 	固定/优先排课与统一设置冲突。
+		一个教师带多个班同一科目，固定上课时间冲突(已合班的除外)。
+		独占、固定、优先设置不能与统一禁止设置冲突
+		同一班级多个科目，优先排课节次重叠。此情况不算绝对冲突，但需提醒，并设置科目优先级。
+		与按班级设置、按课程设置的规则冲突，发生此冲突时提醒，但可不改，冲突规则按教师、班级、课程的顺序满足，满足不了的抛弃。
+
+	 */
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getSection() {
+		return section;
+	}
+	public void setSection(String section) {
+		this.section = section;
+	}
+	public String getSchoolId() {
+		return schoolId;
+	}
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
+	}
+	public String getSubjectId() {
+		return subjectId;
+	}
+	public void setSubjectId(String subjectId) {
+		this.subjectId = subjectId;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public SubjectSettings(String id, String schoolId, String section, String subjectId, int type) {
+		super();
+		this.id = id;
+		this.schoolId = schoolId;
+		this.section = section;
+		this.subjectId = subjectId;
+		this.type = type;
+	}
+	
+	
+	
+}

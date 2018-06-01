@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="index.css" tppabs="http://www.jq22.com/demo/jqueryTabNav201805010008/css/index.css">
+</head>
+<body>
+    <p class="title">无点击功能</p>
+    <!-- 选项卡形式 -->
+    <p class="title">点击型选项卡</p>
+    <div class="menus menus2">
+        <ul>
+            <div class="bg"></div>
+            <li><span>tab1</span></li>
+            <li><span>tab2</span></li>
+            <li><span>tab3</span></li>
+            <li><span>tab4</span></li>
+            <li><span>tab5</span></li>
+        </ul>
+        <div class="clear"></div>
+        <div class="tab tab1 show">
+            <iframe name="content_frame" marginwidth=0 marginheight=0 width=100%  src="index3.html" frameborder=0></iframe>
+        </div>
+        <!--<div class="tab tab1">
+            tab2
+        </div>
+        <div class="tab tab1">
+            tab3
+        </div>
+        <div class="tab tab1">
+            tab4
+        </div>
+        <div class="tab tab1">
+            tab5
+        </div>-->
+    </div>
+<script src="jquery-1.10.2.js" tppabs="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="index.js" tppabs="http://www.jq22.com/demo/jqueryTabNav201805010008/js/index.js"></script>
+</body>
+</html>

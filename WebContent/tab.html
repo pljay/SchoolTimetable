@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>标签页JQ版</title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+
+    <style type="text/css">
+
+    </style>
+
+</head>
+
+<body>
+
+<ul class="nav nav-pills">
+
+    <li class="active"><a href="#n1">首页</a></li>
+
+    <li><a href="#n2">梦想</a></li>
+
+    <li><a href="#n3">爱心</a></li>
+
+    <li><a href="#n4">安逸</a></li>
+
+</ul>
+
+<div class="tab-content" style="padding:20px;">
+
+    <div class="tab-pane active fade in" id="n1">
+
+    </div>
+
+    <div class="tab-pane fade" id="n2">
+
+        <iframe name="content_frame" marginwidth=0 marginheight=0 width=100%  src="index3.html" frameborder=0></iframe>
+    </div>
+
+    <div class="tab-pane fade" id="n3">
+
+        <img src="img/s3.jpg"/>
+
+    </div>
+
+    <div class="tab-pane fade" id="n4">
+
+        <img src="img/s4.jpg"/>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $('.nav a').on('click',function(){
+
+        $(this).tab('show');
+
+    });
+
+</script>
+
+</body>
+
+</html>

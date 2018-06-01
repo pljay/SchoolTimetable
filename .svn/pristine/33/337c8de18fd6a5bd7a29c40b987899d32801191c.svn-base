@@ -1,0 +1,117 @@
+package cn.wizool.schooltimetable.Rules.GeneralRules;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+import cn.wizool.schooltimetable.bean.Pages;
+import cn.wizool.schooltimetable.jdbc.Mysql;
+import cn.wizool.schooltimetable.utils.JsonUtils;
+import cn.wizool.schooltimetable.utils.ResponseUtils;
+
+/**
+ * Servlet implementation class GeneralInfoList
+ */
+@WebServlet(description = "通用设置信息下发", urlPatterns = { "/GeneralInfoList" })
+public class GeneralInfoList extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static Logger logger=Logger.getLogger(GeneralInfoList.class);
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public GeneralInfoList() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String jsonp = request.getParameter("callback"); 
+		String taskid = request.getParameter("taskid");
+		Integer pagenumber = Integer.parseInt(request.getParameter("pageNumber"));
+		Integer pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		String sql="SELECT\r\n" + 
+				"	ID,\r\n" + 
+				"	ITEM_SCHOOLID,\r\n" + 
+				"	ITEM_ZDLTS,\r\n" + 
+				"	ITEM_ZXLTS,\r\n" + 
+				"	ITEM_KKSDLT,\r\n" + 
+				"	ITEM_JAQP\r\n" + 
+				"FROM\r\n" + 
+				"	`tlk_创建任务`\r\n" + 
+				"WHERE\r\n" + 
+				"	ID = '"+taskid+"'\r\n" + 
+				"limit \r\n "+(pagenumber-1)*pageSize+","+pageSize;
+		logger.info(sql);
+		String sql2="SELECT COUNT(*) AS total "+
+				"FROM\r\n" + 
+				"	`tlk_创建任务` AS a\r\n" +  
+				"WHERE\r\n" + 
+				"	a.ID = '"+taskid+"'\r\n";
+		Connection connection = Mysql.getInstance().getConnection();
+		try {
+			PreparedStatement prepareStatement = connection.prepareStatement(sql);
+			ResultSet executeQuery = prepareStatement.executeQuery();
+			List<Map> list=new ArrayList<>();
+			Map map=new HashMap<>();
+			Integer total=0;
+			while(executeQuery.next()) {		
+				map.put("ITEM_ZDLTS", executeQuery.getInt("ITEM_ZDLTS"));
+				map.put("ITEM_ZXLTS", executeQuery.getInt("ITEM_ZXLTS"));
+				map.put("ITEM_KKSDLT", executeQuery.getString("ITEM_KKSDLT"));
+				map.put("ITEM_JAQP", executeQuery.getString("ITEM_JAQP"));
+				map.put("id", executeQuery.getString("ID"));
+				map.put("schoolid", executeQuery.getString("ITEM_SCHOOLID"));
+				list.add(map);
+			}
+			PreparedStatement prepareStatement2 = connection.prepareStatement(sql2);
+			ResultSet resultSet2 = prepareStatement2.executeQuery();
+			while(resultSet2.next()) {
+				total=resultSet2.getInt("total");
+			}
+			prepareStatement.close();
+			executeQuery.close();
+			prepareStatement.close();
+			resultSet2.close();
+			Pages pages = new Pages(total, pagenumber, pageSize, list);
+			ResponseUtils.renderJson(response,  request.getParameter("callback")+"("+JsonUtils.objectToJsonNotNull(pages)+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
