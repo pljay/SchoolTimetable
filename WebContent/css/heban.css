@@ -1,0 +1,169 @@
+.projectsbody {
+	width: 20%;
+	float: left;
+	border: 1px solid #31BC86;
+	height: 400px;
+	text-align: center;
+}
+
+.classbody {
+	width: 25%;
+	float: left;
+	border: 1px solid #31BC86;
+	height: 400px;
+	text-align: center;
+}
+
+.title {
+	color: #E38D13;
+	padding-top: 5px;
+	height: 10%;
+}
+
+.projectlist {
+	overflow-y: scroll;
+	height: 90%;
+}
+
+.project {
+	width: 100%;
+	padding: 5px;
+	margin: 0px;
+}
+
+.banjilist {
+	overflow-y: scroll;
+	height: 90%;
+}
+
+.list {
+	overflow-y: scroll;
+	height: 90%;
+}
+
+.yiheban {
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	margin: 0px;
+	text-align: left;
+}
+
+.banji {
+	width: 100%;
+	padding: 5px;
+	margin: 0px;
+}
+
+.banji_hover {
+	width: 100%;
+	padding: 5px;
+	margin: 0px;
+	background-color: gainsboro;
+}
+
+.banji_hover_choose {
+	width: 100%;
+	padding: 5px;
+	margin: 0px;
+	background-color: gainsboro;
+}
+
+.banji_choose {
+	width: 100%;
+	padding: 5px;
+	margin: 0px;
+	background-color: #5BC0DE;
+}
+
+.you {
+	width: 5%;
+	float: left;
+	height: 400px;
+	text-align: center;
+}
+
+.rightlogo {
+	margin-top: 190px;
+}
+
+.heban {
+	width: 70%;
+	height: 45px;
+	color: white;
+	border: 1px solid gainsboro;
+	border-radius: 5px;
+	background-color: #5BC0DE;
+}
+
+.heban_hover {
+	width: 70%;
+	height: 45px;
+	color: white;
+	border: 1px solid #0044CC;
+	border-radius: 5px;
+	background-color: #5BC0DE;
+}
+
+.chaiban {
+	width: 70%;
+	height: 45px;
+	color: #000000;
+	border: 1px solid gainsboro;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.chaiban_hover {
+	width: 70%;
+	height: 45px;
+	color: #000000;
+	border: 1px solid #959595;
+	border-radius: 5px;
+	background-color: #CCCCCC;
+}
+
+.promptmain {
+	overflow: auto;
+	height: 120px;
+}
+
+.prompt {
+	color: #E38D13;
+	height: 120px;
+	background-color: #F5E79E;
+	padding: 10%;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	display: none;
+}
+
+.hebanok {
+	color: #255625;
+	height: 60px;
+	background-color: #C1E2B3;
+	padding: 10%;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	display: none;
+}
+
+.chaibanok {
+	color: #255625;
+	height: 60px;
+	background-color: #C1E2B3;
+	padding: 10%;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	display: none;
+}
+
+.project_banji {
+	display: none;
+	overflow: auto;
+}
+
+.project_banji_show {
+	overflow: auto;
+}

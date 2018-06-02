@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="zh">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>基于bootstrup的jQuery多级列表树插件</title>
+		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link rel="shortcut icon" href="favicon.ico.css" />
+		<link rel="stylesheet" type="text/css" href="normalize.css" />
+		<link rel="stylesheet" type="text/css" href="demo.css" />
+		<link rel="stylesheet" type="text/css" href="component.css" />
+		<link rel="stylesheet" type="text/css" href="css/heban.css" />
+		<script>
+			$(function() {
+				var datalist = "";
+				var mergelist = "";
+				var taskid = "";
+				var schoolid = "";
+				var mergeclassnum = 1;
+				//拿课程班级基础数据
+				$.ajax({
+					type: "get",
+					url: "../../../MergeClassInfoList?taskid=" +localStorage.getItem("taskid"),
+					async: false,
+					dataType: "jsonp",
+					jsonpCallback: "jsonpCallback", //自定义的jsonp回调函数名,默认为jQuery自动生成的随机函数
+					jsonp: "callback", //传递给请求处理程序或页面的,用以获得jsonp回调函数名的参数名(默认为callback)
+					data: '',
+					success: function(data, status) {
+						datalist = data;
+
+						GetDate();
+						console.log(data);
+					},
+					error: function() {
+						alert("Error");
+					},
+					complete: function() {
+
+					}
+
+				});
+				//拿已合班的班级数据
+				$.ajax({
+					type: "get",
+					url: "../../../MergeClassRulesInfoList",
+					async: false,
+					dataType: "json",
+					data: {taskid:taskid,schoolid:schoolid},
+					success: function(data, status) {
+						mergelist = data.mergeclasslist;
+						GetMergeList(mergelist);
+						console.log(mergelist);
+					},
+					error: function() {
+						alert("Error");
+					},
+					complete: function() {
+
+					}
+
+				});
+				//页面填充已合班数据
+				function GetMergeList(mergelist) {
+
+
+
+
+						for(var j = 0; j < mergelist.length; j++) {
+							var obj = mergelist[j];
+							var subjectid = obj.subjectid;
+							var subjectname = obj.subjectname;
+							var mergeclassids = obj.mergeclassids;
+							var mergeclassnames = obj.mergeclassnames;
+							var teacherids = obj.teacherids;
+							var teachernames = obj.teachernames;
+							var div = document.createElement("div");
+							div.id = subjectid + "_" + mergeclassnum;
+							div.className = "yiheban";
+							mergeclassnum += 1;
+
+							var spanproject = document.createElement("span");
+							spanproject.id = "project";
+							spanproject.innerHTML = subjectname + '：';
+
+							var spanclass = document.createElement("span");
+							spanclass.id = "banji";
+							spanclass.innerHTML = mergeclassnames;
+
+							var classidinput = document.createElement("input");
+							classidinput.type = "hidden";
+							classidinput.value = mergeclassids;
+
+							var divteacherid = document.createElement("div");
+							divteacherid.id = "teacherid";
+							var inputteacherid = document.createElement("input");
+							inputteacherid.type = "hidden";
+							inputteacherid.value = teacherids;
+							divteacherid.appendChild(inputteacherid);
+
+							var divteachername = document.createElement("div");
+							divteachername.id = "teachername";
+							var inputteachername = document.createElement("input");
+							inputteachername.type = "hidden";
+							inputteachername.value = teachernames;
+							divteachername.appendChild(inputteachername);
+
+							div.appendChild(spanproject);
+							div.appendChild(spanclass);
+							div.appendChild(classidinput);
+							div.appendChild(divteacherid);
+							div.appendChild(divteachername);
+							$("#list").append(div);
+						}
+
+
+				}
+				//页面填充班级基础数据
+				function GetDate() {
+					var subjectlist = new Array();
+					var new_subjectlist = new Array();
+					for(var i = 0; i < datalist.length; i++) {
+						var ob = datalist[i];
+						if(i == 0) {
+							taskid = ob.taskid;
+							schoolid = ob.schoolid;
+						}
+						var subjectid = ob.subjectid;
+						var subjectname = ob.subjectname;
+						var teacherid = ob.teacherid;
+						var teachername = ob.teachername;
+						var state = 0;
+						for(var j = 0; j < subjectlist.length; j++) {
+							var subid = subjectlist[j];
+							if(subid == subjectid) {
+								state = 1;
+							}
+						}
+						if(state == 0) {
+							var p = document.createElement("p");
+							p.className = "project";
+							p.id = subjectid;
+							p.innerHTML = subjectname;
+							$("#projectlist").append(p);
+							var div = document.createElement("div");
+							div.id = subjectid;
+							div.className = "project_banji";
+
+							var inputteacherid = document.createElement("input");
+							inputteacherid.type = "hidden";
+							inputteacherid.value = teacherid;
+							inputteacherid.id = subjectid + "_teacherid";
+							div.appendChild(inputteacherid);
+
+							var inputteachername = document.createElement("input");
+							inputteachername.type = "hidden";
+							inputteachername.value = teachername;
+							inputteachername.id = subjectid + "_teachername";
+							div.appendChild(inputteachername);
+
+							$("#banjilist").append(div);
+							subjectlist.push(subjectid);
+						}
+					}
+					for(var a = 0; a < datalist.length; a++) {
+						var ob = datalist[a];
+						var subid = ob.subjectid;
+						var classname = ob.classname;
+						var classid = ob.classid;
+						var mergeclassid = ob.mergeclassid;
+						if(mergeclassid == "") {
+							var p = document.createElement("p");
+							p.className = "banji";
+							p.id = classid;
+							p.innerHTML = classname;
+							$("#banjilist #" + subid).append(p);
+						}
+					}
+				}
+
+				function hebanObj(subjectid, subjectname, mergeclassids, mergeclassnames, teacherids, teachernames) {
+					this.subjectid = subjectid;
+					this.subjectname = subjectname;
+					this.mergeclassids = mergeclassids;
+					this.mergeclassnames = mergeclassnames;
+					this.teacherids = teacherids;
+					this.teachernames = teachernames;
+				}
+				//数据提交
+				$("#submit").click(function() {
+					var mergeclasslist = [];
+					$(".yiheban").each(function() {
+						var str = $(this).attr("id");
+						var strkemu = str.split('_');
+						var kemuid = strkemu[0];
+						var kemuname = $("#projectlist").find("#" + kemuid).html();
+						var mergeclassids = $(this).find("input").val();
+						var mergeclassnames = $(this).find("#banji").html();
+						var teacherids = $(this).find("#teacherid").find("input").val();
+						var teachernames = $(this).find("#teachername").find("input").val();
+						mergeclasslist.push(new hebanObj(kemuid, kemuname, mergeclassids, mergeclassnames, teacherids, teachernames));
+					});
+					var json = {
+						taskid: taskid,
+						schoolid: schoolid,
+						mergeclasslist: mergeclasslist
+					}
+					$.ajax({
+						type: "post",
+						url: "../../../MergeClassRulesUpload",
+						async: false,
+						dataType: "text",
+						data: {
+							strJson: JSON.stringify(json)
+						},
+						success: function(data, status) {
+						    if(data=="success"){
+                                alert("成功");
+							}
+
+						},
+						error: function() {
+							alert("Error");
+						},
+						complete: function() {
+
+						}
+
+					});
+				})
+			});
+		</script>
+		<style type="text/css">
+			.header {
+				margin-bottom: 15px;
+				font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;
+			}
+			
+			.icon {
+				color: #fff;
+			}
+		</style>
+		<!--[if IE]>
+		<script src="html5shiv.min.js" tppabs="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	</head>
+
+	<body onload="">
+		<div class="component">
+			<h3>合班上课规则</h3>
+			<p>列出任务中所有课程(普通排课中即科目)，选择科目，列出上该科目的所有班(含任课教师信息)，选择若干班，合并为一个合并班。  选择合并班，拆分为原行政班。
+			</p>
+
+			<br>
+			<div class="col-sm-12">
+
+				<div id="projects" class="projectsbody">
+					<div class="title">第一步：选择课程</div>
+					<input type="hidden" id="chooseproject" value="" />
+					<div id="projectlist" class="projectlist">
+						<!--<p class="project" id="shuxue">数学</p>
+						<p class="project" id="yuwen">语文</p>
+						<p class="project" id="waiyu">外语</p>-->
+					</div>
+				</div>
+				<div class="you">
+					<img src="images/navigate-right.png" width="50%" class="rightlogo" />
+				</div>
+				<div id="banjis" class="projectsbody">
+					<div class="title">第二步：选择班级</div>
+					<input type="hidden" id="choosebanji" value="" />
+					<div id="banjilist" class="banjilist">
+						<!--<div id="yuwen" class="project_banji">
+							<p class="banji" id="ban_1">高一3班（马小杰）</p>
+							<p class="banji" id="ban_2">高一2班（马小杰）</p>
+						</div>
+						<div id="shuxue" class="project_banji">
+							<p class="banji" id="shu_1">高一15班（马小杰）</p>
+							<p class="banji" id="shu_2">高一12班（马小杰）</p>
+							<p class="banji" id="shu_3">高一19班（马小杰）</p>
+						</div>
+						<div id="waiyu" class="project_banji">
+						</div>-->
+					</div>
+				</div>
+				<div class="you">
+					<img src="images/navigate-right.png" width="50%" class="rightlogo" />
+				</div>
+				<div id="caozuo" class="projectsbody">
+					<div class="promptmain">
+						<div id="prompt" class="prompt">请在左侧第二步选择要至少两个班级！</div>
+						<div id="split" class="prompt">请在右侧选择一个您要拆分的合班！</div>
+						<div id="hebanok" class="hebanok">添加合班成功！</div>
+						<div id="chaibanok" class="chaibanok">删除合班成功！</div>
+					</div>
+					<div style="margin-top: 30px;">
+						<button id="heban" class="heban"> 合班>> </button>
+						<button id="chaiban" class="chaiban"> <<拆分合班 </button>
+					</div>
+				</div>
+				<div class="you">
+					<img src="images/navigate-right.png" width="50%" class="rightlogo" />
+				</div>
+				<div id="heban" class="classbody">
+					<div class="title">已存在合班课</div>
+					<input type="hidden" id="chooseyiheban" value="" />
+					<div id="list" class="list">
+						<!--<div class="yiheban" id="shuxue_111">
+							<span id="project">数学：</span>
+							<span id="banji">
+								高一3班（马小杰）;高一4班（潘小杰）;高二5班（刘小明）	
+							</span>
+							<input type="hidden" value="ban_3;ban_4;ban_5" />
+						</div>
+						<div class="yiheban" id="waiyu_222">
+							<span id="project">外语：</span>
+							<span id="banji">
+								高一3班（马小杰）;高一4班（潘小杰）;高二5班（刘小明）							
+							</span>
+							<input type="hidden" value="ban_6;ban_7;ban_8" />
+						</div>
+						<div class="yiheban" id="yuwen_333">
+							<span id="project">语文：</span>
+							<span id="banji">
+								高一3班（马小杰）;高一4班（潘小杰）
+							</span>
+							<input type="hidden" value="ban_9;ban_10" />
+						</div>-->
+					</div>
+				</div>
+			</div>
+			<div style="float: right;margin-top: 10px;">
+				<button id="submit" class="btn  btn-success btn-lg" >保存</button>
+			</div>
+
+		</div>
+		<!--<script src="js/jquery-3.3.1.js"></script>-->
+		<script src="jquery.min.js" tppabs="http://www.jq22.com/jquery/2.1.1/jquery.min.js"></script>
+		<script src="jquery-ui.js"></script>
+		<script>
+		</script>
+		<script>
+			var arrPerson = new Array();
+			//合班操作
+			$('.heban').click(function() {
+				var hebannum = $('#list').children('div').length;
+				hebannum += 1;
+				var lenght = arrPerson.length;
+				if(lenght < 2) {
+					$("#prompt").hide();
+					$("#split").hide();
+					$("#hebanok").hide();
+					$("#chaibanok").hide();
+					$("#prompt").show();
+					setTimeout(function() {
+						$("#prompt").animate({
+							opacity: "hide"
+						}, "slow");
+					}, 3000);
+				} else {
+					$("#prompt").hide();
+					$("#split").hide();
+					$("#hebanok").hide();
+					$("#chaibanok").hide();
+					$("#hebanok").show();
+					setTimeout(function() {
+						$("#hebanok").animate({
+							opacity: "hide"
+						}, "slow");
+					}, 3000);
+					var kemuid = $("#chooseproject").val();
+					var kemu = $("#projectlist #" + kemuid).html();
+					var div = document.createElement("div");
+					div.id = kemuid + "_" + hebannum;
+					div.className = "yiheban";
+					var spankemu = document.createElement("span");
+					spankemu.id = "project";
+					spankemu.innerHTML = kemu + '：';
+					var spanbanji = document.createElement("span");
+					spanbanji.id = "banji";
+					var inputbanji = document.createElement("input");
+					inputbanji.type = "hidden";
+					$.each(arrPerson, function(index, callback) {
+						$("#banjilist #" + kemuid + " #" + arrPerson[index].id).remove();
+						if(index == arrPerson.length - 1) {
+							spanbanji.innerHTML += arrPerson[index].name;
+							inputbanji.value += arrPerson[index].id;
+						} else {
+							spanbanji.innerHTML += arrPerson[index].name + ";";
+							inputbanji.value += arrPerson[index].id + ";";
+						}
+					});
+					var divteacherid = document.createElement("div");
+					divteacherid.id = "teacherid";
+					var inputteacherid = document.createElement("input");
+					inputteacherid.type = "hidden";
+					inputteacherid.value = $("#banjilist #" + kemuid + "_teacherid").val();
+					divteacherid.appendChild(inputteacherid);
+
+					var divteachername = document.createElement("div");
+					divteachername.id = "teachername";
+					var inputteachername = document.createElement("input");
+					inputteachername.type = "hidden";
+					inputteachername.value = $("#banjilist #" + kemuid + "_teachername").val();
+					divteachername.appendChild(inputteachername);
+
+					div.appendChild(spankemu);
+					div.appendChild(spanbanji);
+					div.appendChild(inputbanji);
+					div.appendChild(divteacherid);
+					div.appendChild(divteachername);
+					$("#list").append(div);
+					$.each(arrPerson, function(index, callback) {
+						arrPerson = remove(arrPerson, "id", arrPerson[arrPerson.length - 1].id);
+					});
+				}
+			});
+			//拆班操作
+			$('.chaiban').click(function() {
+				var chooseyiheban = $("#chooseyiheban").val();
+				if(chooseyiheban == "") {
+					$("#prompt").hide();
+					$("#split").hide();
+					$("#hebanok").hide();
+					$("#chaibanok").hide();
+					$("#split").show();
+					setTimeout(function() {
+						$("#split").animate({
+							opacity: "hide"
+						}, "slow");
+					}, 3000);
+				} else {
+					var ids = $("#" + chooseyiheban + " input").val();
+					var banjis = $("#" + chooseyiheban + " #banji").html();
+					var strids = ids.split(';');
+					var banjis = banjis.split(';');
+					var strkemu = chooseyiheban.split('_');
+
+					for(var i = 0; i < strids.length; i++) {
+						var p = document.createElement("p");
+						p.className = "banji";
+						p.id = strids[i];
+						p.innerHTML = banjis[i];
+						$("#banjilist" + " #" + strkemu[0]).append(p);
+					}
+					$("#" + chooseyiheban).remove();
+					$("#prompt").hide();
+					$("#split").hide();
+					$("#hebanok").hide();
+					$("#chaibanok").hide();
+					$("#chaibanok").show();
+					setTimeout(function() {
+						$("#chaibanok").animate({
+							opacity: "hide"
+						}, "slow");
+					}, 3000);
+					$("#chooseyiheban").val("");
+				}
+			});
+			//合班按钮鼠标事件
+			$("#heban").on("mouseover", function() {
+				$(this).attr("class", "heban_hover");
+			});
+			$("#heban").on("mouseout", function() {
+				$(this).attr("class", "heban");
+			});
+			//拆班按钮鼠标事件
+			$("#chaiban").on("mouseover", function() {
+				$(this).attr("class", "chaiban_hover");
+			});
+			$("#chaiban").on("mouseout", function() {
+				$(this).attr("class", "chaiban");
+			});
+			//已合班班级鼠标事件
+			$("#list").on("mouseover", ".yiheban", function() {
+				var id = $(this).attr("id");
+				var chooseyiheban = $("#chooseyiheban").val();
+				if(id != chooseyiheban) {
+					$(this).css("background-color", "gainsboro");
+				}
+			});
+			$("#list").on("mouseleave", ".yiheban", function() {
+				var id = $(this).attr("id");
+				var chooseyiheban = $("#chooseyiheban").val();
+				if(id != chooseyiheban) {
+					$(this).css("background-color", "");
+				}
+			});
+			$("#list").on("click", ".yiheban", function() {
+				$(".yiheban").each(function() {
+					$(this).css("background-color", "");
+				});
+				$(this).css("background-color", "#5BC0DE");
+
+				var id = $(this).attr("id");
+				$("#chooseyiheban").val(id);
+			});
+			//科目列表鼠标事件
+			$("#projectlist").on("mouseover", ".project", function() {
+				var id = $(this).attr("id");
+				var chooseproject = $("#chooseproject").val();
+				if(id != chooseproject) {
+					$(this).css("background-color", "gainsboro");
+				}
+
+				$(this).mouseover(function() {
+					var id = $(this).attr("id");
+					var chooseproject = $("#chooseproject").val();
+					if(id != chooseproject) {
+						$(this).css("background-color", "gainsboro");
+					}
+
+				});
+				$(this).mouseleave(function() {
+					var id = $(this).attr("id");
+					var chooseproject = $("#chooseproject").val();
+					if(id != chooseproject) {
+						$(this).css("background-color", "");
+					}
+				});
+				$(this).click(function() {
+					var id = $(this).attr("id");
+					$.each(arrPerson, function(index, callback) {
+						arrPerson = remove(arrPerson, "id", arrPerson[arrPerson.length - 1].id);
+					});
+					$(".project").each(function() {
+						$(this).css("background-color", "");
+					});
+					$("#banjilist p").each(function() {
+						$(this).attr("class", "banji");
+					});
+					$(".project_banji_show").each(function() {
+						$(this).attr("class", "project_banji");
+					});
+					$(this).css("background-color", "#5BC0DE");
+					$("#chooseproject").val(id);
+					$("#banjilist #" + id).attr("class", "project_banji_show");
+				});
+			});
+			//班级列表鼠标事件
+			$("#banjilist").on("mouseover", ".banji", function() {
+				var id = $(this).attr("id");
+				var classname = $(this).attr("class");
+				if(classname == "banji_choose") {
+					$(this).attr("class", "banji_hover_choose");
+				} else {
+					$(this).attr("class", "banji_hover");
+				}
+
+				$(this).mouseover(function() {
+					var id = $(this).attr("id");
+					var classname = $(this).attr("class");
+					if(classname == "banji_choose") {
+						$(this).attr("class", "banji_hover_choose");
+					} else {
+						$(this).attr("class", "banji_hover");
+					}
+
+				});
+				$(this).mouseleave(function() {
+					var id = $(this).attr("id");
+					var classname = $(this).attr("class");
+					if(classname == "banji_hover") {
+						$(this).attr("class", "banji");
+					} else {
+						$(this).attr("class", "banji_choose");
+					}
+				});
+				$(this).click(function() {
+					var id = $(this).attr("id");
+					var name = $(this).html();
+					var classname = $(this).attr("class");
+					if(classname == "banji_hover") {
+						$(this).attr("class", "banji_choose");
+						var person = new Object();
+						person.id = id;
+						person.name = name;
+						arrPerson.push(person);
+					} else {
+						$(this).attr("class", "banji_hover");
+						//测试删除
+						//						showPersonInfo("原始数组：/r/t", arrPerson);
+						arrPerson = remove(arrPerson, "id", id);
+						//						showPersonInfo("删除之后：/r/t", arrPerson);
+					}
+					//showPersonInfo("原始数组：/r/t", arrPerson);
+				});
+			});
+			//			$("#banjilist").on("mouseleave", ".banji", function() {
+			//				alert("3");
+			//				var id = $(this).attr("id");
+			//				var chooseproject = $("#chooseproject").val();
+			//				if(id != chooseproject) {
+			//					$(this).attr("class", "banji");
+			//				}
+			//				
+			//			});
+			//			$("#banjilist").on("click", ".banji", function() {
+			//				alert("4");
+			//				var id = $(this).attr("id");
+			//				var name = $(this).html();
+			//				var classname = $(this).attr("class");
+			//				if(classname == "banji") {
+			//					$(this).attr("class", "banji_choose");
+			//					var person = new Object();
+			//					person.id = id;
+			//					person.name = name;
+			//					arrPerson.push(person);
+			//				} else {
+			//					$(this).attr("class", "banji");
+			//					//测试删除
+			//					showPersonInfo("原始数组：/r/t", arrPerson);
+			//					arrPerson = remove(arrPerson, "id", id);
+			//					showPersonInfo("删除之后：/r/t", arrPerson);
+			//				}
+			//				showPersonInfo("原始数组：/r/t", arrPerson);
+			//				
+			//			});
+		</script>
+		<script>
+			/**
+			 * 从对象数组中删除属性为objPropery，值为objValue元素的对象
+			 * @param Array arrPerson  数组对象
+			 * @param String objPropery  对象的属性
+			 * @param String objPropery  对象的值
+			 * @return Array 过滤后数组
+			 */
+			function remove(arrPerson, objPropery, objValue) {
+				return $.grep(arrPerson, function(cur, i) {
+					return cur[objPropery] != objValue;
+				});
+			}
+			/**
+			 * 从对象数组中获取属性为objPropery，值为objValue元素的对象
+			 * @param Array arrPerson  数组对象
+			 * @param String objPropery  对象的属性
+			 * @param String objPropery  对象的值
+			 * @return Array 过滤后的数组
+			 */
+			function get(arrPerson, objPropery, objValue) {
+				return $.grep(arrPerson, function(cur, i) {
+					return cur[objPropery] == objValue;
+				});
+			}
+			/**
+			 * 显示对象数组信息
+			 * @param String info  提示信息
+			 * @param Array arrPerson  对象数组
+			 */
+			function showPersonInfo(info, arrPerson) {
+				$.each(arrPerson, function(index, callback) {
+					info += "Person id:" + arrPerson[index].id + " name:" + arrPerson[index].name + "/r/t";
+				});
+			}
+		</script>
+	</body>
+</html>

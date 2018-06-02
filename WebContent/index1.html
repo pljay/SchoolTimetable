@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    	<title>通用设置</title>
+    	<title>科目</title>
 		<link href="bootstrap/css/bootstrap.css"  rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="normalize.css"/>
 		<link rel="stylesheet" type="text/css" href="demo.css" />
@@ -18,8 +18,8 @@
 	<body>
     <div class="container">
          <div class="component">
-             <h3>通用设置规则</h3>
-             <p>对所有课程生效，设置最大、最小连堂数量。不设置默认最大连堂为4，最小连堂为0(即可以没有)。可跨时段连堂：是/否，默认否。教案齐平：是/否，默认是。</p>
+             <h3>科目排课优先级规则</h3>
+             <p>优先级：列出本任务中涉及的所有科目，按默认按录入顺序设定优先级，可修改。优先级分5级高、较高、中、较低、低，编码为5-1，越大越高。可不设。默认优先级为中，值为3。</p>
             <br>
          </div>
         <div class="col-sm-12">
@@ -44,7 +44,7 @@
         $(function () {
             var $table = $("#table");
             $table.bootstrapTable({
-                url: '../../../GeneralInfoList?taskid='+localStorage.getItem("taskid"),
+                url: '../../../SubjectListServlet?taskid='+localStorage.getItem("taskid"),
                 dataType: "jsonp",//数据类型
                 method: 'get',
                 async : false,
@@ -65,55 +65,42 @@
                 idField: 'ID',
                 columns: [
                     {
-                        title:"每日最大连堂数",
-                        field:"ITEM_ZDLTS",
-                        editable: {
-                            type: 'number',
-                            emptytext: 0,
+                        field:"index",
+                        title:"序号",
+                        align:"center",
+                        formatter:function(value, row, index){
+                            return row.index=index+1 ; //返回行号
                         }
 
                     },
                     {
-                        title:"每日最小连堂数",
-                        field:"ITEM_ZXLTS",
-                        editable: {
-                            type: 'number',
-                            emptytext: 0,
-                        }
+                        field:"subject_name",
+                        title:"科目",
+                        align:"center",
+
                     },
                     {
-                        title:"可跨时段连堂",
-                        field:"ITEM_KKSDLT",
+                        title:"优先级",
+                        field:"subject_priority",
                         editable: {
                             type: 'select',
                             emptytext: "请选择",
-                            value:"是",
                             source: [
-                                {value: "否", text:"否"},
-                                {value: "是", text: "是"}
+                                {value: 1, text:"低"},
+                                {value: 2, text: "较低"},
+                                {value: 3, text: "中"},
+                                {value: 4, text: "较高"},
+                                {value: 5, text: "高"}
                             ]
 
                         }
 
-                    },
-                    {
-                        title:"教案齐平",
-                        field:"ITEM_JAQP",
-                        editable: {
-                            type: 'select',
-                            emptytext: "请选择",
-                            value:"是",
-                            source: [
-                                {value: "是", text:"是"},
-                                {value: "否", text: "否"}
-                            ]
-                        }
-                    }
-                ],
+                    }],
                 onEditableSave: function (field, row, oldValue, $el) {
+                    alert(JSON.stringify(row));
                    $.ajax({
                         type: "post",
-                        url: "../../../GeneralRulesInfoUpload",
+                        url: "../../..//SubjectUpdatePriority",
                         async : false,
                         dataType : "jsonp",
                         jsonpCallback : "jsonpCallback",//自定义的jsonp回调函数名,默认为jQuery自动生成的随机函数
