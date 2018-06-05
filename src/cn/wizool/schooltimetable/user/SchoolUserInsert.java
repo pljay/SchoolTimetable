@@ -496,7 +496,7 @@ public class SchoolUserInsert extends HttpServlet {
 			PreparedStatement prepareStatement6 = connection.prepareStatement(sql7);
 			prepareStatement6.execute();
 			prepareStatement6.close();
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -81,9 +81,6 @@ public class UpdateSchoolServlet extends HttpServlet {
 				" `SIGN` = '',\r\n" + 
 				" `ITEM_CAMPUSNAME` = '"+schoolname+"',\r\n" + 
 				" `ITEM_CAMPUSTRA` = '"+campustra+"',\r\n" + 
-				" `BUMENID` = '"+WeChatid+"',\r\n" + 
-				" `ITEM_WEIXINID` = '"+WeChatid+"',\r\n" + 
-				" `ITEM_SCHOOLID` = '"+serialnumber+"',\r\n" + 
 				" `ITEM_Abbreviation` = '"+abbreviation+"',\r\n" + 
 				" `ITEM_Location` = '"+place+"',\r\n" + 
 				" `ITEM_Address` = '"+address+"',\r\n" + 
